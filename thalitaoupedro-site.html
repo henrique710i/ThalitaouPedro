@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quem Está Certo: Thalita ou Pedro?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0; padding: 0;
+    background: url('https://images.unsplash.com/photo-1605789538462-287b019ee3f4?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat fixed;
+    color: #333;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    backdrop-filter: blur(8px);
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: 700;
+  }
+  label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+    text-align: left;
+    color: #34495e;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  button {
+    margin-top: 24px;
+    padding: 14px;
+    width: 100%;
+    font-size: 1.2rem;
+    background: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #1f6387;
+  }
+  #resultado {
+    margin-top: 24px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-height: 50px;
+    color: #222;
+  }
+  footer {
+    margin-top: 40px;
+    font-style: italic;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>⚖️ Quem Está Certo: Thalita ou Pedro?</h1>
+    <label for="motivo">Motivo da discussão:</label>
+    <input id="motivo" placeholder="Ex: vacilou e sumiu..." />
+    <label for="op1">Thalita disse:</label>
+    <textarea id="op1" rows="3" placeholder="Ex: você vacilou..."></textarea>
+    <label for="op2">Pedro disse:</label>
+    <textarea id="op2" rows="3" placeholder="Ex: eu tava cansado..."></textarea>
+    <button onclick="julgar()">Julgar!</button>
+    <div id="resultado"></div>
+    <footer>
+      Pedro te ama demais, Thalita. Fiz esse site pra te lembrar disso toda vez 💖
+    </footer>
+  </div>
+<script>
+function julgar() {
+  const palavrasRuins = ['vacilou','sumiu','foi grosso','esticou o prazo','não colou','perdeu a hora',
+                        'xingou','mentiu','ignorou','culpou','briga','briguei','brigou','briga feia'];
+  const palavrasBoas = ['carinho','amor','respeitou','dialogou','entendeu','escutou','desculpas','abraçou','esperou','paciente'];
+  let scoreThalita = 0, scorePedro = 0;
+  const op1 = document.getElementById('op1').value.toLowerCase();
+  const op2 = document.getElementById('op2').value.toLowerCase();
+
+  palavrasRuins.forEach(p => {
+    if(op1.includes(p)) scoreThalita -= 2;
+    if(op2.includes(p)) scorePedro -= 2;
+  });
+  palavrasBoas.forEach(p => {
+    if(op1.includes(p)) scoreThalita += 2;
+    if(op2.includes(p)) scorePedro += 2;
+  });
+
+  let veredito = '🤷‍♀️ Empate técnico — o diálogo é o que importa!';
+  if(scoreThalita > scorePedro) veredito = '✅ Thalita está certa!';
+  else if(scorePedro > scoreThalita) veredito = '✅ Pedro está certo!';
+
+  const motivo = document.getElementById('motivo').value;
+  document.getElementById('resultado').innerText = `Motivo: ${motivo}
+${veredito}`;
+}
+</script>
+</body>
+</html>
